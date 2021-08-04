@@ -81,22 +81,6 @@ public class EntityEnderPearl extends EntityProjectile {
 
             if (!portal) {
                 teleport();
-
-                if (Server.getInstance().mobsFromBlocks) {
-                    if (Utils.rand(1, 20) == 5) {
-                        CreatureSpawnEvent ev = new CreatureSpawnEvent(NETWORK_ID, CreatureSpawnEvent.SpawnReason.ENDER_PEARL);
-                        level.getServer().getPluginManager().callEvent(ev);
-
-                        if (ev.isCancelled()) {
-                            return false;
-                        }
-
-                        Entity entity = Entity.createEntity("Endermite", this.add(0.5, 1, 0.5));
-                        if (entity != null) {
-                            entity.spawnToAll();
-                        }
-                    }
-                }
             }
 
             return false;
@@ -126,11 +110,6 @@ public class EntityEnderPearl extends EntityProjectile {
         }
 
         this.shootingEntity.teleport(new Vector3(NukkitMath.floorDouble(this.x) + 0.5, this.y, NukkitMath.floorDouble(this.z) + 0.5), TeleportCause.ENDER_PEARL);
-
-        int gamemode = ((Player) this.shootingEntity).getGamemode();
-        if (gamemode == 0 || gamemode == 2) {
-            this.shootingEntity.attack(new EntityDamageByEntityEvent(this, shootingEntity, EntityDamageEvent.DamageCause.FALL, 5f, 0f));
-        }
 
         this.level.addSound(new EndermanTeleportSound(this));
     }
