@@ -144,7 +144,7 @@ public class QueryRegenerateEvent extends ServerEvent {
         KVdata.put("gametype", this.gameType);
         KVdata.put("game_id", "MINECRAFTPE");
         KVdata.put("version", this.version);
-        KVdata.put("server_engine", Nukkit.NUKKIT);
+        KVdata.put("server_engine", "Nukkit");
         KVdata.put("plugins", plist.toString());
         KVdata.put("map", this.map);
         KVdata.put("numplayers", String.valueOf(this.numPlayers));
