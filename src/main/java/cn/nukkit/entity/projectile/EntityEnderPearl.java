@@ -65,32 +65,14 @@ public class EntityEnderPearl extends EntityProjectile {
             return false;
         }
 
-        if (this.timing != null) this.timing.startTiming();
+        this.timing.startTiming();
+        teleport();
 
-        if (this.isCollided && this.shootingEntity instanceof Player) {
-            List<Block> b = this.getCollisionBlocks();
-
-            boolean portal = false;
-            for (Block collided : b) {
-                if (collided.getId() == Block.NETHER_PORTAL) {
-                    portal = true;
-                }
-            }
-
-            this.close();
-
-            if (!portal) {
-                teleport();
-            }
-
-            return false;
-        }
-
-        if (this.age > 1200 || this.isCollided) {
+        if (this.isCollided) {
             this.close();
         }
 
-        if (this.timing != null) this.timing.stopTiming();
+        this.timing.stopTiming();
 
         return super.onUpdate(currentTick);
     }
