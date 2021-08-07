@@ -27,7 +27,7 @@ public class VersionCommand extends VanillaCommand {
         super(name,
                 "%nukkit.command.version.description",
                 "%nukkit.command.version.usage",
-                new String[]{"ver", "about"}
+                new String[]{"ver"}
         );
         this.setPermission("nukkit.command.version");
         this.commandParameters.clear();
@@ -39,28 +39,7 @@ public class VersionCommand extends VanillaCommand {
             return true;
         }
         if (args.length == 0 || !sender.hasPermission("nukkit.command.version.plugins")) {
-            sender.sendMessage("§e###############################################\n§cNukkit §aPetteriM1 Edition\n§6Build: §b" + Nukkit.getBranch() + '/' + Nukkit.VERSION.substring(4) + "\n§6Multiversion: §bUp to version " + ProtocolInfo.MINECRAFT_VERSION_NETWORK + "\n§dhttps://github.com/PetteriM1/NukkitPetteriM1Edition\n§e###############################################");
-
-            if (sender.isOp()) {
-                CompletableFuture.runAsync(() -> {
-                    try {
-                        URLConnection request = new URL(Nukkit.BRANCH).openConnection();
-                        request.connect();
-                        InputStreamReader content = new InputStreamReader((InputStream) request.getContent());
-                        String latest = "git-" + new JsonParser().parse(content).getAsJsonObject().get("sha").getAsString().substring(0, 7);
-                        content.close();
-
-                        if (Nukkit.getBranch().equals("master")) {
-                            if (!sender.getServer().getNukkitVersion().equals(latest) && !sender.getServer().getNukkitVersion().equals("git-null")) {
-                                sender.sendMessage("\u00A7c[Update] \u00A7eThere is a new build of Nukkit PetteriM1 Edition available! Current: " + sender.getServer().getNukkitVersion() + " Latest: " + latest);
-                            } else {
-                                sender.sendMessage("\u00A7aYou are running the latest version.");
-                            }
-                        }
-                    } catch (Exception ignore) {
-                    }
-                });
-            }
+            sender.sendMessage("§fNukkit - 1.0");
         } else {
             StringBuilder pluginName = new StringBuilder();
             for (String arg : args) pluginName.append(arg).append(' ');
