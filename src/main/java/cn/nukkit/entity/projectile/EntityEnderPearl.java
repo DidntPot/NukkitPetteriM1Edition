@@ -65,14 +65,22 @@ public class EntityEnderPearl extends EntityProjectile {
             return false;
         }
 
-        this.timing.startTiming();
+        if (this.timing != null) this.timing.startTiming();
         teleport();
+        
+        if (this.isCollided && this.shootingEntity instanceof Player) {
+
+            teleport();
+            this.close();
+        
+            return false;
+        }
 
         if (this.isCollided) {
             this.close();
         }
 
-        this.timing.stopTiming();
+        if (this.timing != null) this.timing.stopTiming();
 
         return super.onUpdate(currentTick);
     }
