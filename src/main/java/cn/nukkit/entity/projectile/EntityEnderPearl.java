@@ -95,6 +95,11 @@ public class EntityEnderPearl extends EntityProjectile {
     }
 
     private void teleport() {
+        if(shootingEntity == null){
+            this.close;
+            return;
+        }
+        
         if (!this.level.equals(this.shootingEntity.getLevel())) {
             return;
         }
