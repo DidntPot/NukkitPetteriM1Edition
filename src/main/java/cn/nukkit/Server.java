@@ -543,7 +543,7 @@ public class Server {
             }
         }
 
-        log.info("\u00A7b-- \u00A7cNukkit \u00A7aPetteriM1 Edition \u00A7b--");
+        log.info("\u00A7b-- \u00A7cNukkit \u00A7b--");
 
         this.consoleSender = new ConsoleCommandSender();
         this.commandMap = new SimpleCommandMap(this);
@@ -715,28 +715,6 @@ public class Server {
         if (this.getPropertyBoolean("bstats-metrics", true)) {
             new NukkitMetrics(this);
         }
-
-        // Check for updates
-        CompletableFuture.runAsync(() -> {
-            try {
-                URLConnection request = new URL(Nukkit.BRANCH).openConnection();
-                request.connect();
-                InputStreamReader content = new InputStreamReader((InputStream) request.getContent());
-                String latest = "git-" + new JsonParser().parse(content).getAsJsonObject().get("sha").getAsString().substring(0, 7);
-                content.close();
-
-                boolean isMaster = Nukkit.getBranch().equals("master");
-                if (!this.getNukkitVersion().equals(latest) && !this.getNukkitVersion().equals("git-null") && isMaster) {
-                    this.getLogger().info("\u00A7c[Update] \u00A7eThere is a new build of Nukkit available! Current: " + this.getNukkitVersion() + " Latest: " + latest);
-                } else if (!isMaster) {
-                    this.getLogger().warning("\u00A7eYou are running a dev build! Do not use in production! Branch: " + Nukkit.getBranch());
-                }
-
-                this.getLogger().debug("Update check done");
-            } catch (Exception ignore) {
-                this.getLogger().debug("Update check failed");
-            }
-        });
 
         this.start();
     }
