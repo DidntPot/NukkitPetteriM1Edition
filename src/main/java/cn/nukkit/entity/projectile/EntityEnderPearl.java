@@ -96,7 +96,7 @@ public class EntityEnderPearl extends EntityProjectile {
 
     private void teleport() {
         if(shootingEntity == null){
-            this.close;
+            this.close();
             return;
         }
         
